@@ -4,6 +4,36 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const likeButtons = document.querySelectorAll('.media-post .like-glyph');
+const clickBtnsArray = Array.from(likeButtons)
+console.log(clickBtnsArray);
+clickBtnsArray.map(button => {
+  button.addEventListener('click', clickHearts);
+});
+
+function clickHearts(e) {
+  const clickedHeart = e.target;
+  console.log(clickedHeart);
+
+  mimicServerCall()
+    .then((res) => {
+//ida kayn deja hada class 
+      if (clickedHeart.classList.contains('activated-heart')) {
+        clickedHeart.classList.remove('activated-heart'); 
+        //nrml case 
+      } else {
+        clickedHeart.classList.add('activated-heart'); 
+      }
+    })
+    .catch((err) => {
+      const div = document.querySelector('#modal');
+      div.classList.remove('hidden');
+      setTimeout(function() {
+        div.classList.add('hidden');
+      }, 5000);
+      
+    });
+}
 
 
 
